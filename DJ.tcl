@@ -1,3 +1,7 @@
+#Copyright (C) 2011  Wolvendeer
+#Released under the terms of the Artistic License 2.0 as published by The Perl Foundation.
+#For more information, see "LICENSE" or <http://www.opensource.org/licenses/artistic-license-2.0>
+
 #!/bin/sh
 #Includes:
 package require BWidget
@@ -7,7 +11,7 @@ package require Mk4tcl
 mk::file open db datafile.mk
 set dr [mk::view layout db.dreams {Title:S Day:I Month:I Year:I Clarity:I Lucidity:I Rating:I PreNotes:S Dream:S PostNotes:S}]
 
-#Build base gui: Tabs, etc.
+#Theme the application.
 option add *Frame.background "#191B33" startupFile
 option add *Frame.foreground "#C6C271" startupFile
 option add *Listbox.background "#2B2F5F" startupFile
@@ -24,6 +28,8 @@ option add *Label.background "#191B33" startupFile
 option add *Label.foreground "#C6C271" startupFile
 option add *Text.background "#2B2F5F" startupFile
 option add *Text.foreground "#C6C271" startupFile
+
+#Build base gui: Tabs, etc.
 grid config [ttk::notebook .dj] -column 0 -row 0 -columnspan 10 -rowspan 10 -sticky "snew"
 .dj add [frame .dj.dr] -text "Dreams"
 .dj add [frame .dj.dc] -text "Dream Characters"
