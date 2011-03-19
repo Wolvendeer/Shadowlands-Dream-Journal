@@ -6,10 +6,12 @@
 #Includes:
 package require BWidget
 package require Mk4tcl
+source DJ_Procs.tcl
 
 #Initialize database
-mk::file open db datafile.mk
-set dr [mk::view layout db.dreams {Title:S Day:I Month:I Year:I Clarity:I Lucidity:I Rating:I PreNotes:S Dream:S PostNotes:S}]
+catch {mk::file open db datafile.mk}
+mk::view layout db.dreams {Title:S Day:I Month:I Year:I Clarity:I Lucidity:I Rating:I PreNotes:S Dream:S PostNotes:S}
+mk::cursor create drcurse db.dreams
 
 #Theme the application.
 option add *Frame.background "#191B33" startupFile
@@ -39,7 +41,8 @@ ttk::notebook::enableTraversal .dj
 #Build Dreams Tab
 # #Column 1 - For displaying dreams held by the dream journal.
 grid config [frame .dj.dr.l] -row 1 -column 1 -sticky "snew"
-grid config [listbox .dj.dr.l.lst -selectmode single] -row 1 -column 1 -rowspan 4 -sticky "snew"
+grid config [Tree .dj.dr.l.tree] -row 1 -column 1 -rowspan 4 -sticky "snew"
+
 # #Column 2 - For actual content.  Title, date, dream description, etc.
 grid config [frame .dj.dr.c] -row 1 -column 2 -sticky "snew"
 grid config [label .dj.dr.c.ltitle -text "Title"] -row 1 -column 2 -sticky "n"
@@ -64,6 +67,7 @@ grid config [button .dj.dr.c.dc -text "DC"] -row 2 -column 10 -sticky "ne"
 grid config [button .dj.dr.c.ds -text "Dreamscapes"] -row 2 -column 11 -columnspan 2 -sticky "nw"
 grid config [text .dj.dr.c.dream] -row 3 -column 2 -columnspan 15 -sticky "snew"
 grid config [button .dj.dr.c.save -text "Save"] -row 4 -column 12 -sticky "ne"
+
 # #Column 3 - For descriptive content such as tags, lucidity, rating, etc.
 grid config [frame .dj.dr.r] -row 1 -column 3 -sticky "snew"
 grid config [button .dj.dr.r.button1 -text "Button 1"] -row 1 -column 1 -sticky "snew"
@@ -85,6 +89,9 @@ grid rowconfigure . 0 -weight 1
 grid rowconfigure .dj.dr 1 -weight 1
 grid rowconfigure .dj.dr.l 1 -weight 1
 grid rowconfigure .dj.dr.c 3 -weight 4
+
+#Initialize Dreams Tab
+filltree .dj.dr.l.tree drcurse
 
 #Closing statements
 mk::file close db
