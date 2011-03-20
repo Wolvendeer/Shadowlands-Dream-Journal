@@ -1,40 +1,35 @@
-#Richard Suchenwirth 2002-11-07 from: http://wiki.tcl.tk/4535
-proc pruc {name argl body} {
-    set prefix ""
-    foreach {upvar var} [regexp -all -inline {[*&]([^ ]+)} $argl] {
-	append prefix "\nupvar 1 \${$upvar} $var;"
-    }
-    proc $name $argl $prefix$body
-}
-
-pruc filltree {&tree &vwcurse} {
-	mk::loop vwcurse {
-		set Year [mk::get vwcurse Year]
-		set Month [mk::get vwcurse Month]
-		set Day [mk::get vwcurse Day]
+proc filltree {&tree vwcurse} {
+		global ${&tree}
+		set Year [mk::get $vwcurse Year]
+		set Month [mk::get $vwcurse Month]
+		set Day [mk::get $vwcurse Day]
 		
-		if {$tree exists .$Year} {
-			if {$tree exists .$Year.$Month} {
-				if {$tree exists .$Year.$Month.$Day} {
-					$tree insert end .$Year.$Month.$Day .$Year.$Month.$Day.#auto -text [mk::get vwcurse Title] -data [mk::cursor position vwcurse]
+		if {[Tree::exists ${&tree} .$Year]} {
+			if {[Tree::exists ${&tree} .$Year.$Month]} {
+				if {[Tree::exists ${&tree} .$Year.$Month.$Day]} {
+					Tree::insert ${&tree} end .$Year.$Month.$Day .$Year.$Month.$Day.#auto -text [mk::get $vwcurse Title] -data [mk::cursor position vwcurse]
 				} else {
-					$tree insert end .$Year.$Month .$Year.$Month.$Day -text $Day
-					$tree insert end .$Year.$Month.$Day .$Year.$Month.$Day.#auto -text [mk::get vwcurse Title] -data [mk::cursor position vwcurse]
+					Tree::insert ${&tree} end .$Year.$Month .$Year.$Month.$Day -text $Day
+					Tree::insert ${&tree} end .$Year.$Month.$Day .$Year.$Month.$Day.#auto -text [mk::get $vwcurse Title] -data [mk::cursor position vwcurse]
 				}
 			} else {
-				$tree insert end .$Year .$Year.$Month -text $Month
-				$tree insert end .$Year.$Month .$Year.$Month.$Day -text $Day
-				$tree insert end .$Year.$Month.$Day .$Year.$Month.$Day.#auto -text [mk::get vwcurse Title] -data [mk::cursor position vwcurse]
+				Tree::insert ${&tree} end .$Year .$Year.$Month -text $Month
+				Tree::insert ${&tree} end .$Year.$Month .$Year.$Month.$Day -text $Day
+				Tree::insert ${&tree} end .$Year.$Month.$Day .$Year.$Month.$Day.#auto -text [mk::get $vwcurse Title] -data [mk::cursor position vwcurse]
 			}
 		} else {
-			$tree insert end root .$Year -text $Year
-			$tree insert end .$Year .$Year.$Month -text $Month
-			$tree insert end .$Year.$Month .$Year.$Month.$Day -text $Day
-			$tree insert end .$Year.$Month.$Day .$Year.$Month.$Day.#auto -text [mk::get vwcurse Title] -data [mk::cursor position vwcurse]
+			Tree::insert ${&tree} end root .$Year -text  $Year
+			Tree::insert ${&tree} end .$Year .$Year.$Month -text $Month
+			Tree::insert ${&tree} end .$Year.$Month .$Year.$Month.$Day -text $Day
+			Tree::insert ${&tree} end .$Year.$Month.$Day .$Year.$Month.$Day.#auto -text [mk::get $vwcurse Title] -data [mk::cursor position vwcurse]
 		}
-	}
 }
 
-proc drsave {} {
-	
+proc drsave {drcurse neu} {
+	if {$neu} {
+		mk::row insert $drcurse 1 [mk::row create Title [.dj.dr.c.title get] Day [.dj.dr.c.day get] Month [.dj.dr.c.month get] Year [.dj.dr.c.year get] Clarity [.dj.dr.c.clarity get] Lucidity [.dj.dr.c.lucidity get] Rating [.dj.dr.c.rating get] Type [.dj.dr.c.type get] PreNotes "" Dream [.dj.dr.c.dream get 1.0 end] PostNotes ""]
+		#filltree .dj.dr.l.tree $Gdrcurse
+	} else {
+		mk::row replace $drcurse [mk::row create Title [.dj.dr.c.title get] Day [.dj.dr.c.day get] Month [.dj.dr.c.month get] Year [.dj.dr.c.year get] Clarity [.dj.dr.c.clarity get] Lucidity [.dj.dr.c.lucidity get] Rating [.dj.dr.c.rating get] Type [.dj.dr.c.type get] PreNotes "" Dream [.dj.dr.c.dream get 1.0 end] PostNotes ""]
+	}
 }
