@@ -10,8 +10,8 @@ source DJ_Procs.tcl
 
 #Initialize database
 catch {mk::file open db datafile.mk}
-mk::view layout db.dreams {Title:S Day:I Month:I Year:I Clarity:I Lucidity:I Rating:I PreNotes:S Dream:S PostNotes:S}
-mk::cursor create drcurse db.dreams
+set dr [mk::view layout db.dreams {Title Day Month Year Clarity Lucidity Rating Type PreNotes Dream PostNotes}]
+set dri 0
 
 #Theme the application.
 option add *Frame.background "#191B33" startupFile
@@ -66,7 +66,7 @@ grid config [ComboBox .dj.dr.c.type -values [list "Normal (ND)" "Lucid (LD)" "Ni
 grid config [button .dj.dr.c.dc -text "DC"] -row 2 -column 10 -sticky "ne"
 grid config [button .dj.dr.c.ds -text "Dreamscapes"] -row 2 -column 11 -columnspan 2 -sticky "nw"
 grid config [text .dj.dr.c.dream] -row 3 -column 2 -columnspan 15 -sticky "snew"
-grid config [button .dj.dr.c.save -text "Save"] -row 4 -column 12 -sticky "ne"
+grid config [button .dj.dr.c.save -text "Save" -command {drsave $dr!$dri $drnew}] -row 4 -column 12 -sticky "ne"
 
 # #Column 3 - For descriptive content such as tags, lucidity, rating, etc.
 grid config [frame .dj.dr.r] -row 1 -column 3 -sticky "snew"
@@ -82,8 +82,10 @@ grid config [label .dj.dr.r.label3 -text "Label 3"] -row 6 -column 1 -sticky "sn
 grid columnconfigure . 0 -weight 1
 grid columnconfigure .dj.dr 1 -weight 1
 grid columnconfigure .dj.dr 2 -weight 4
+grid columnconfigure .dj.dr 3 -weight 1
 grid columnconfigure .dj.dr.l 1 -weight 1
 grid columnconfigure .dj.dr.c 3 -weight 4
+grid columnconfigure .dj.dr.r 1 -weight 1
 
 grid rowconfigure . 0 -weight 1
 grid rowconfigure .dj.dr 1 -weight 1
@@ -91,7 +93,15 @@ grid rowconfigure .dj.dr.l 1 -weight 1
 grid rowconfigure .dj.dr.c 3 -weight 4
 
 #Initialize Dreams Tab
-filltree .dj.dr.l.tree drcurse
+foreach i [mk::select $dr] {
+	global $dri
+	set dri $i
+	filltree .dj.dr.l.tree $dr!$dri
+}
+set drnew true
+.dj.dr.c.day set [clock format [clock seconds] -format {%d}]
+.dj.dr.c.month set [clock format [clock seconds] -format {%m}]
+.dj.dr.c.year set [clock format [clock seconds] -format {%Y}]
 
 #Closing statements
-mk::file close db
+#mk::file close db
