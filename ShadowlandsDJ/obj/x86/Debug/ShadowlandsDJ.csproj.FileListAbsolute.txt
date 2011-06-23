@@ -1,0 +1,11 @@
+C:\Users\Wolvendeer\documents\visual studio 2010\Projects\ShadowlandsDJ\ShadowlandsDJ\bin\Debug\ShadowlandsDJ.exe
+C:\Users\Wolvendeer\documents\visual studio 2010\Projects\ShadowlandsDJ\ShadowlandsDJ\bin\Debug\ShadowlandsDJ.pdb
+C:\Users\Wolvendeer\documents\visual studio 2010\Projects\ShadowlandsDJ\ShadowlandsDJ\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Users\Wolvendeer\documents\visual studio 2010\Projects\ShadowlandsDJ\ShadowlandsDJ\obj\x86\Debug\WindowsFormsApplication1.Form1.resources
+C:\Users\Wolvendeer\documents\visual studio 2010\Projects\ShadowlandsDJ\ShadowlandsDJ\obj\x86\Debug\WindowsFormsApplication1.Properties.Resources.resources
+C:\Users\Wolvendeer\documents\visual studio 2010\Projects\ShadowlandsDJ\ShadowlandsDJ\obj\x86\Debug\GenerateResource.read.1.tlog
+C:\Users\Wolvendeer\documents\visual studio 2010\Projects\ShadowlandsDJ\ShadowlandsDJ\obj\x86\Debug\GenerateResource.write.1.tlog
+C:\Users\Wolvendeer\documents\visual studio 2010\Projects\ShadowlandsDJ\ShadowlandsDJ\obj\x86\Debug\ShadowlandsDJ.exe
+C:\Users\Wolvendeer\documents\visual studio 2010\Projects\ShadowlandsDJ\ShadowlandsDJ\obj\x86\Debug\ShadowlandsDJ.pdb
+C:\Users\Wolvendeer\documents\visual studio 2010\Projects\ShadowlandsDJ\ShadowlandsDJ\bin\Debug\System.Data.SQLite.dll
+C:\Users\Wolvendeer\documents\visual studio 2010\Projects\ShadowlandsDJ\ShadowlandsDJ\bin\Debug\System.Data.SQLite.xml
